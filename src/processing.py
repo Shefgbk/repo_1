@@ -1,4 +1,4 @@
-def filter_by_state(dic_list: list, state: str = 'EXECUTED') -> list:
+def filter_by_state (dic_list: list, state: str = 'EXECUTED') -> list:
   """ Функция возвращает новый список словарей, содержащий только те словари,
   у которых ключ state  (по умолчанию 'EXECUTED') соответствует указанному значению"""
   filtred_dic_list = []
