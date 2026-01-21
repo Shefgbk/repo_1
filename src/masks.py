@@ -21,4 +21,3 @@ def get_mask_account(bank_account: str) -> str:
         raise ValueError('Номер счета должен состоять из цифр')
     else:
         raise ValueError('Некорректная длина (формат) номера счета')
-
