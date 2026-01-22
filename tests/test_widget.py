@@ -1,6 +1,8 @@
-import pytest
 from typing import cast
-from widget import mask_account_card, get_date
+
+import pytest
+
+from src.widget import get_date, mask_account_card
 
 
 @pytest.mark.parametrize('bank_data, masked_data', zip(        # тестирование корректных данных
