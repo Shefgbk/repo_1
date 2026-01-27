@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from masks import get_mask_account, get_mask_card_number
+from src.masks import get_mask_account, get_mask_card_number
 
 
 def mask_account_card(bank_info: str) -> str:
@@ -17,10 +17,12 @@ def mask_account_card(bank_info: str) -> str:
 
 def get_date(initial_date: str) -> str:
     """Функция, изменяющая формат даты"""
-    if datetime.fromisoformat(initial_date):
-        list_of_date = initial_date.split('T')
-        formated_list = list_of_date[0].split('-')
-        formated_date = '.'.join(formated_list[-1::-1])
-        return formated_date
-    else:
-        raise ValueError('Некорректный формат (данные) даты')
+    try:
+        datetime.fromisoformat(initial_date)
+    except ValueError:
+        raise ValueError('Некорректный формат даты')
+
+    list_of_date = initial_date.split('T')
+    formated_list = list_of_date[0].split('-')
+    formated_date = '.'.join(formated_list[-1::-1])
+    return formated_date
