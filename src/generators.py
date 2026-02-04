@@ -5,23 +5,40 @@ def filter_by_currency(transactions: list[dict], curr: str) -> Iterator:
     ''' Функция принимает на вход список словарей, представляющих транзакции.
     Возвращает итератор, который поочередно выдает транзакции,
     где валюта операции соответствует заданной (например, USD) '''
-    return (transaction for transaction in transactions if transaction['operationAmount']['currency']['code'] == curr)
+    list_values = []
+    for transaction in transactions:
+        list_values.append(transaction['operationAmount']['currency']['code'])
+    if curr in list_values:
+        return (transaction for transaction in transactions
+                if transaction['operationAmount']['currency']['code'] == curr)
+    else:
+        print('Нет транзакций в указанной валюте')
+        return iter([])
 
 
 def transaction_descriptions(transactions: list[dict]) -> Iterator:
     ''' Генератор, который принимает список словарей с транзакциями
     и возвращает описание каждой операции по очереди '''
-    return (transaction['description'] for transaction in transactions)
+    if transactions:
+        for transaction in transactions:
+            yield transaction['description']
+    else:
+        print('Отсутствуют транзакции для вывода')
+
 
 def card_number_generator(start: int, end: int) -> Iterator:
     ''' Генератор номеров карт в заданном диапазоне от 0000 0000 0000 0001
     до 9999 9999 9999 9999 (начало и конец диапазона задаются вручную) '''
-    for num in range(start, end + 1):
-        str_num = str(num)
-        while len(str_num) < 16:
-            str_num = '0' + str_num
-        card_num = str_num[:4] + ' ' + str_num[4:8] + ' ' + str_num[8:12] + ' ' + str_num[12:]
-        yield card_num
+    if start in range(1, 10000000000000000) and end in range(1, 10000000000000000):
+        for num in range(start, end + 1):
+            str_num = str(num)
+            while len(str_num) < 16:
+                str_num = '0' + str_num
+            card_num = str_num[:4] + ' ' + str_num[4:8] + ' ' + str_num[8:12] + ' ' + str_num[12:]
+            yield card_num
+    else:
+        print('Задан некорректный диапазон номеров карт')
+
 
 # Тестовые данные:
 transactions = (
@@ -103,14 +120,3 @@ transactions = (
         }
     ]
 )
-
-usd_transactions = filter_by_currency(transactions, "USD")
-for _ in range(2):
-    print(next(usd_transactions))
-
-descriptions = transaction_descriptions(transactions)
-for _ in range(5):
-    print(next(descriptions))
-
-for card_number in card_number_generator(1, 5):
-    print(card_number)
