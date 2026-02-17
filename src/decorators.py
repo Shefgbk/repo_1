@@ -1,8 +1,8 @@
-from functools import wraps
 from datetime import datetime
+from functools import wraps
+from typing import Any
 
 from black.lines import Callable
-from typing import Any
 
 
 def log(filename: Any = None) -> Callable:
