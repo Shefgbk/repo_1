@@ -6,6 +6,8 @@ from dotenv import load_dotenv
 
 
 def convert_currency(transaction: dict[Any]) -> float:
+    '''Функция, которая принимает на вход транзакцию и
+    возвращает сумму транзакции в рублях'''
     load_dotenv()
     API_KEY = os.getenv('API_KEY')
     if transaction['operationAmount']['currency']['code'] in ['EUR', 'USD']:
@@ -18,21 +20,5 @@ def convert_currency(transaction: dict[Any]) -> float:
     elif transaction['operationAmount']['currency']['code'] == 'RUB':
         return round(float(transaction['operationAmount']['amount']), 2)
     else:
-        return print('Некорректная валюта операции')
-# tr = {
-#     "id": 41428829,
-#     "state": "EXECUTED",
-#     "date": "2019-07-03T18:35:29.512364",
-#     "operationAmount": {
-#       "amount": "8221.37",
-#       "currency": {
-#         "name": "USD",
-#         "code": "USD"
-#       }
-#     },
-#     "description": "Перевод организации",
-#     "from": "MasterCard 7158300734726758",
-#     "to": "Счет 35383033474447895560"
-#   }
-#
-# convert_currency(tr)
+        return None
+        print('Некорректная валюта операции')

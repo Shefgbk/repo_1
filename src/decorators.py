@@ -8,6 +8,7 @@ from black.lines import Callable
 def log(filename: Any = None) -> Callable:
     '''Функция-декоратор, который будет автоматически регистрировать детали выполнения функций,
     такие как время вызова, имя функции, передаваемые аргументы, результат выполнения и информация об ошибках'''
+
     def wrapper(func: Callable) -> Callable:
         @wraps(func)
         def inner(*args: Any, **kwargs: Any) -> Any:
@@ -37,5 +38,7 @@ def log(filename: Any = None) -> Callable:
                         f.write(log_msg)
                 else:
                     print(log_msg)
+
         return inner
+
     return wrapper
