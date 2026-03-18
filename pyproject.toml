@@ -8,10 +8,12 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "python-dotenv (>=1.2.1,<2.0.0)"
 ]
 
 [tool.poetry]
-packages = [{include = "dz_9_1", from = "src"}]
+packages = [{include = "dz_9_1"}]
+
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
