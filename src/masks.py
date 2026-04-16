@@ -1,15 +1,21 @@
 import logging
+import os
 
-logger = logging.getLogger('__name__')
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+rel_file_path = os.path.join(current_dir, "../logs/masks.log")
+abs_file_path = os.path.abspath(rel_file_path)
+
+logger = logging.getLogger('masks')
 logger.setLevel(logging.INFO)
-file_handler = logging.FileHandler('logs/__name__.log', 'w', encoding="utf-8")
+file_handler = logging.FileHandler(abs_file_path, 'w', encoding="utf-8")
 file_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s: %(message)s')
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
 
 
 def get_mask_card_number(card_number: str) -> str:
-    """Функция, возвращающая маску номера карты клиента"""
+    """ Функция, возвращающая маску номера карты клиента """
     logger.info('Ввод номера карты клиента')
     if len(card_number) == 16 and card_number.isdigit():
         changed_string = '******'.join([card_number[:6], card_number[12:]])
