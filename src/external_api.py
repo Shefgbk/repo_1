@@ -5,7 +5,7 @@ import requests
 from dotenv import load_dotenv
 
 
-def convert_currency(transaction: dict[Any, Any]) -> float|None:
+def convert_currency(transaction: dict[Any, Any]) -> float | None:
     '''Функция, которая принимает на вход транзакцию и
     возвращает сумму транзакции в рублях'''
     load_dotenv()
