@@ -47,7 +47,7 @@ tr2 = {                             # Тестовая транзакция
 
 
 @patch('requests.get')
-def test_convert_currency_usd(mock_get: dict) -> None:         # Тестирование конвертации с "заглушкой" обращения к API
+def test_convert_currency_usd(mock_get) -> None:         # Тестирование конвертации с "заглушкой" обращения к API
     mock_get.return_value.json.return_value = {'result': 640055.03}
     assert convert_currency(tr2) == 640055.03
     mock_get.assert_called_once_with(f"https://api.apilayer.com/exchangerates_data/convert?to="
