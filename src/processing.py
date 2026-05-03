@@ -26,14 +26,12 @@ def sort_by_date(dict_list: list, descending: bool = True) -> list:
 def process_bank_search(data: list[dict], search: str) -> list[dict]:
     ''' Функция, которая принимает список словарей с данными о банковских операциях
     и строку поиска, возвращает список словарей, у которых в описании есть данная строка'''
-    search = input('Введите тип финансовой операции: ')
     pattern = rf'{search.lower()}'
     searched_dicts = [item for item in data if re.search(pattern, item['description'].lower())]
     if searched_dicts:
-        print(f'Список операций с типом \'{search}\':')
         return searched_dicts
     else:
-        print('Транзакции с данным типом операции не найдены')
+        print('\nТранзакции с данным типом операции не найдены')
         return None
 
 def process_bank_operations(data: list[dict], categories: list) -> dict:
