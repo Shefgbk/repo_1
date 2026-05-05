@@ -7,12 +7,26 @@ def filter_by_currency(transactions: list[dict], curr: str) -> Iterator:
     где валюта операции соответствует заданной (например, USD) '''
     list_values = []
     for transaction in transactions:
-        list_values.append(transaction['operationAmount']['currency']['code'])
-    if curr in list_values:
-        return (transaction for transaction in transactions
-                if transaction['operationAmount']['currency']['code'] == curr)
+        if len(transaction) == 7:
+            list_values.append(transaction['operationAmount']['currency']['code'])
+        elif len(transaction) == 9:
+            list_values.append(transaction['currency_code'])
+    if len(transactions[0]) == 7:
+        if curr in list_values:
+            return (transaction for transaction in transactions
+                    if transaction['operationAmount']['currency']['code'] == curr)
+        else:
+            print('Нет транзакций в указанной валюте')
+            return iter([])
+    elif len(transactions[0]) == 9:
+        if curr in list_values:
+            return (transaction for transaction in transactions
+                    if transaction['currency_code'] == curr)
+        else:
+            print('Нет транзакций в указанной валюте')
+            return iter([])
     else:
-        print('Нет транзакций в указанной валюте')
+        print('Некорректный формат данных')
         return iter([])
 
 
@@ -120,3 +134,8 @@ transactions = (
         }
     ]
 )
+tr2 = ([{'id': 3330422, 'state': 'EXECUTED', 'date': '2023-08-05T07:11:26Z', 'currency_name': 'Ruble', 'currency_code': 'RUB', 'from': 'Mastercard 9458117363112215', 'to': 'Visa 6335859532296628', 'description': 'Перевод с карты на карту'},
+{'id': 3794942, 'state': 'EXECUTED', 'date': '2021-05-24T02:37:49Z', 'amount': 14174, 'currency_name': 'Yuan Renminbi', 'currency_code': 'CNY', 'from': 'Mastercard 8628645140673956', 'to': 'Счет 36990402090010935845', 'description': 'Перевод организации'},
+{'id': 3967324, 'state': 'EXECUTED', 'date': '2021-05-22T07:46:10Z', 'amount': 30809, 'currency_name': 'Peso', 'currency_code': 'PHP', 'from': None, 'to': 'Счет 99143269778241825075', 'description': 'Открытие вклада'}])
+
+#print(next(filter_by_currency(tr2, 'RUB')))
