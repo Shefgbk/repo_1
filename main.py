@@ -18,6 +18,7 @@ if choose_one == 1:
 elif choose_one == 2:
     print('\nДля обработки выбран CSV-файл')
     processed_data = reading_csv('data/transactions.csv')
+    print(processed_data)
 elif choose_one == 3:
     print('\nДля обработки выбран XLSX-файл')
     processed_data = reading_excel('data/transactions_excel.xlsx')
