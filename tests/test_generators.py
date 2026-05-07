@@ -76,15 +76,18 @@ def test_filter_by_currency_incorrect_value() -> None:  # Тестировани
         chck_transactions = filter_by_currency(transactions, 'CNY')
         next(chck_transactions)
 
+
 def test_filter_by_currency_incorrect_value2() -> None:  # Тестирование с отсутствующей валютой в другом формате данных
     with pytest.raises(StopIteration):
         chck_transactions = filter_by_currency(transactions2, 'BRL')
         next(chck_transactions)
 
+
 def test_filter_by_currency_null_value() -> None:  # Тестирование без указания валюты
     with pytest.raises(StopIteration):
         chck_transactions = filter_by_currency(transactions, ' ')
         next(chck_transactions)
+
 
 @pytest.fixture
 def incorrect_format() -> list[dict]:
@@ -102,6 +105,7 @@ def incorrect_format() -> list[dict]:
          'currency_code': 'USD', 'from': 'Mastercard 4156625376917975', 'to': 'American Express 6573309743396617',
          'description': 'Перевод с карты на карту'}
     ]
+
 
 def test_incorrect_data(incorrect_format: list[dict]) -> None:  # Тестирование без указания валюты
     with pytest.raises(StopIteration):

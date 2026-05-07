@@ -23,6 +23,7 @@ def sort_by_date(dict_list: list, descending: bool = True) -> list:
     sorted_list = sorted(dict_list, key=lambda x: datetime.fromisoformat(x['date']), reverse=descending)
     return sorted_list
 
+
 def process_bank_search(data: list[dict], search: str) -> list[dict]:
     ''' Функция, которая принимает список словарей с данными о банковских операциях
     и строку поиска, возвращает список словарей, у которых в описании есть данная строка'''
@@ -33,6 +34,7 @@ def process_bank_search(data: list[dict], search: str) -> list[dict]:
     else:
         print('\nТранзакции с данным типом операции не найдены')
         return None
+
 
 def process_bank_operations(data: list[dict], categories: list) -> dict:
     ''' Функция, которая принимает список словарей с данными о банковских операциях
@@ -48,8 +50,9 @@ def process_bank_operations(data: list[dict], categories: list) -> dict:
     return dict(result)
 
 
-# categories = ['Открытие вклада', 'Перевод организации', 'Перевод со счета на счет', 'Перевод с карты на карту']
-data1 = [{
+categories = ['Открытие вклада', 'Перевод организации', 'Перевод со счета на счет', 'Перевод с карты на карту']
+data_1 = [
+    {
     "id": 542678139,
     "state": "CANCELED",
     "date": "2018-10-14T22:27:25.205631",
@@ -108,6 +111,5 @@ data1 = [{
     "description": "Перевод организации",
     "from": "Счет 96008924215040031147",
     "to": "Счет 30377212495530283001"
-  }]
-# state1 = input()
-# print(filter_by_state(data1, state1))
+  }
+]
