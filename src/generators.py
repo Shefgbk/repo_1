@@ -137,7 +137,7 @@ transactions = (
 
 transactions2 = (
     [
-        {'id': 3330422, 'state': 'EXECUTED', 'date': '2023-08-05T07:11:26Z','amount': 14175,
+        {'id': 3330422, 'state': 'EXECUTED', 'date': '2023-08-05T07:11:26Z', 'amount': 14175,
          'currency_name': 'Ruble', 'currency_code': 'RUB', 'from': 'Mastercard 9458117363112215',
          'to': 'Visa 6335859532296628', 'description': 'Перевод с карты на карту'},
         {'id': 3794942, 'state': 'EXECUTED', 'date': '2021-05-24T02:37:49Z', 'amount': 14174,
@@ -154,5 +154,3 @@ transactions2 = (
          'to': 'American Express 6573309743396617', 'description': 'Перевод с карты на карту'}
     ]
 )
-
-#print(next(filter_by_currency(tr2, 'RUB')))

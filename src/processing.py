@@ -1,7 +1,6 @@
-from datetime import datetime
 import re
-from re import search
 from collections import Counter
+from datetime import datetime
 
 
 def filter_by_state(dic_list: list, state: str = 'EXECUTED') -> list:
@@ -26,14 +25,14 @@ def sort_by_date(dict_list: list, descending: bool = True) -> list:
 
 def process_bank_search(data: list[dict], search: str) -> list[dict]:
     ''' Функция, которая принимает список словарей с данными о банковских операциях
-    и строку поиска, возвращает список словарей, у которых в описании есть данная строка'''
+    и строку поиска, возвращает список словарей, у которых в описании есть данная строка '''
     pattern = rf'{search.lower()}'
     searched_dicts = [item for item in data if re.search(pattern, item['description'].lower())]
     if searched_dicts:
         return searched_dicts
     else:
         print('\nТранзакции с данным типом операции не найдены')
-        return None
+        return []
 
 
 def process_bank_operations(data: list[dict], categories: list) -> dict:
@@ -50,9 +49,9 @@ def process_bank_operations(data: list[dict], categories: list) -> dict:
     return dict(result)
 
 
+# Тестовые данные:
 categories = ['Открытие вклада', 'Перевод организации', 'Перевод со счета на счет', 'Перевод с карты на карту']
-data_1 = [
-    {
+data_1 = [{
     "id": 542678139,
     "state": "CANCELED",
     "date": "2018-10-14T22:27:25.205631",
@@ -111,5 +110,4 @@ data_1 = [
     "description": "Перевод организации",
     "from": "Счет 96008924215040031147",
     "to": "Счет 30377212495530283001"
-  }
-]
+  }]

@@ -12,9 +12,7 @@ class TestReadFileFunctions(unittest.TestCase):
            read_data='id;state;date;amount;currency_name;currency_code;from;to;description\n'
                      '4234093;EXECUTED;2021-07-08T07:31:21Z;23182;Ruble;RUB;'
                      'Visa_0773092093872450;Discover_8602781449570491;Перевод_с_карты_на_карту')
-
-    def test_reading_csv(self, mock_file: list[dict]) -> None:
-    # Проверка корректности чтения CSV файла
+    def test_reading_csv(self, mock_file: list[dict]) -> None:    # Проверка корректности чтения CSV файла
         expected_result = [
             {
                 'id': 4234093,

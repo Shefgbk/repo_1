@@ -2,8 +2,8 @@ import re
 
 import pytest
 
-from src.generators import (card_number_generator, filter_by_currency,
-                            transaction_descriptions, transactions, transactions2)
+from src.generators import (card_number_generator, filter_by_currency, transaction_descriptions, transactions,
+                            transactions2)
 
 
 def test_filter_by_currency() -> None:      # Тестирование корректной работы фильтрации
@@ -92,7 +92,7 @@ def test_filter_by_currency_null_value() -> None:  # Тестирование б
 @pytest.fixture
 def incorrect_format() -> list[dict]:
     return [
-        {'id': 3330422, 'state': 'EXECUTED', 'date': '2023-08-05T07:11:26Z','amount': 14175,
+        {'id': 3330422, 'state': 'EXECUTED', 'date': '2023-08-05T07:11:26Z', 'amount': 14175,
          'currency_code': 'RUB', 'from': 'Mastercard 9458117363112215'},
         {'id': 3794942, 'state': 'EXECUTED', 'date': '2021-05-24T02:37:49Z', 'amount': 14174,
          'currency_name': 'Yuan Renminbi', 'from': 'Mastercard 8628645140673956'},

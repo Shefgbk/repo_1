@@ -1,7 +1,7 @@
 import pytest
 
-from src.processing import (filter_by_state, sort_by_date,
-                            process_bank_search, process_bank_operations, data_1, categories)
+from src.processing import (categories, data_1, filter_by_state, process_bank_operations, process_bank_search,
+                            sort_by_date)
 
 
 @pytest.fixture
@@ -108,25 +108,27 @@ def test_sort_by_date_incorrect_2(dic_list_4: list) -> None:  # тестиров
 
 
 def test_process_bank_search() -> None:
-    assert process_bank_search(data_1, 'на карту') == [{
-    "id": 407169720,
-    "state": "EXECUTED",
-    "date": "2018-02-03T14:52:08.093722",
-    "operationAmount": {
-      "amount": "67011.26",
-      "currency": {
-        "name": "руб.",
-        "code": "RUB"
-      }
-    },
-    "description": "Перевод с карты на карту",
-    "from": "MasterCard 4047671689373225",
-    "to": "Maestro 3806652527413662"
-  }]
+    assert process_bank_search(data_1, 'на карту') == [
+        {
+            "id": 407169720,
+            "state": "EXECUTED",
+            "date": "2018-02-03T14:52:08.093722",
+            "operationAmount": {
+              "amount": "67011.26",
+              "currency": {
+                "name": "руб.",
+                "code": "RUB"
+              }
+            },
+            "description": "Перевод с карты на карту",
+            "from": "MasterCard 4047671689373225",
+            "to": "Maestro 3806652527413662"
+        }
+    ]
 
 
 def test_process_bank_search_no_results() -> None:
-    assert process_bank_search(data_1, 'вклад') == None
+    assert process_bank_search(data_1, 'вклад') == []
 
 
 def test_process_bank_operations() -> None:
