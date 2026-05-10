@@ -2,7 +2,8 @@ import re
 
 import pytest
 
-from src.generators import card_number_generator, filter_by_currency, transaction_descriptions, transactions
+from src.generators import (card_number_generator, filter_by_currency, transaction_descriptions, transactions,
+                            transactions2)
 
 
 def test_filter_by_currency() -> None:      # Тестирование корректной работы фильтрации
@@ -56,15 +57,59 @@ def test_filter_by_currency() -> None:      # Тестирование корр�
         assert next(gen) == result[_]
 
 
+def test_filter_by_currency2() -> None:      # Тестирование корректной работы фильтрации c другим форматом данных
+    gen = filter_by_currency(transactions2, 'USD')
+    result = [
+        {'id': 3616670, 'state': 'EXECUTED', 'date': '2020-06-03T13:14:27Z', 'amount': 18397,
+         'currency_name': 'Dollar', 'currency_code': 'USD', 'from': 'Discover 7364800433362108',
+         'to': 'Visa 4397277168551394', 'description': 'Перевод с карты на карту'},
+        {'id': 3236978, 'state': 'EXECUTED', 'date': '2023-02-07T04:25:44Z', 'amount': 12642,
+         'currency_name': 'Dollar', 'currency_code': 'USD', 'from': 'Mastercard 4156625376917975',
+         'to': 'American Express 6573309743396617', 'description': 'Перевод с карты на карту'}
+        ]
+    for _ in range(2):
+        assert next(gen) == result[_]
+
+
 def test_filter_by_currency_incorrect_value() -> None:  # Тестирование с отсутствующей валютой
     with pytest.raises(StopIteration):
         chck_transactions = filter_by_currency(transactions, 'CNY')
         next(chck_transactions)
 
 
+def test_filter_by_currency_incorrect_value2() -> None:  # Тестирование с отсутствующей валютой в другом формате данных
+    with pytest.raises(StopIteration):
+        chck_transactions = filter_by_currency(transactions2, 'BRL')
+        next(chck_transactions)
+
+
 def test_filter_by_currency_null_value() -> None:  # Тестирование без указания валюты
     with pytest.raises(StopIteration):
         chck_transactions = filter_by_currency(transactions, ' ')
+        next(chck_transactions)
+
+
+@pytest.fixture
+def incorrect_format() -> list[dict]:
+    return [
+        {'id': 3330422, 'state': 'EXECUTED', 'date': '2023-08-05T07:11:26Z', 'amount': 14175,
+         'currency_code': 'RUB', 'from': 'Mastercard 9458117363112215'},
+        {'id': 3794942, 'state': 'EXECUTED', 'date': '2021-05-24T02:37:49Z', 'amount': 14174,
+         'currency_name': 'Yuan Renminbi', 'from': 'Mastercard 8628645140673956'},
+        {'id': 3616670, 'state': 'EXECUTED', 'date': '2020-06-03T13:14:27Z', 'amount': 18397,
+         'currency_name': 'Dollar', 'currency_code': 'USD', 'from': 'Discover 7364800433362108',
+         'description': 'Перевод с карты на карту'},
+        {'id': 3967324, 'state': 'EXECUTED', 'amount': 30809, 'currency_name': 'Peso',
+         'currency_code': 'PHP', 'from': None, 'to': 'Счет 99143269778241825075', 'description': 'Открытие вклада'},
+        {'id': 3236978, 'state': 'EXECUTED', 'date': '2023-02-07T04:25:44Z', 'amount': 12642,
+         'currency_code': 'USD', 'from': 'Mastercard 4156625376917975', 'to': 'American Express 6573309743396617',
+         'description': 'Перевод с карты на карту'}
+    ]
+
+
+def test_incorrect_data(incorrect_format: list[dict]) -> None:  # Тестирование без указания валюты
+    with pytest.raises(StopIteration):
+        chck_transactions = filter_by_currency(incorrect_format, ' ')
         next(chck_transactions)
 
 
